@@ -5,11 +5,12 @@ from django.contrib.auth.admin import UserAdmin
 from .forms import Counsellorform, Counselloreditform
 from .models import counsellor, student, Chatroom, messages
 
-admin.site.register(counsellor, student)
+admin.site.register(counsellor)
+admin.site.register(student)
 
 
 class CustomUserAdmin(UserAdmin):
     add_form = Counsellorform
     form = Counselloreditform
     model = counsellor
-    list_display = ['user_name']
+    list_display = ['username']

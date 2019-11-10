@@ -8,16 +8,12 @@ from django.contrib.auth.models import AbstractUser
 
 class counsellor(AbstractUser):
 
-    user_name = models.CharField(max_length=200)
-    user_password = models.CharField(max_length=100)
     user_status = models.BooleanField(default=False)
     user_information = models.TextField(max_length=1000)
     user_dp = models.ImageField(upload_to='pic_folder/', default='pic_folder/None/no-img.jpg')
-    REQUIRED_FIELDS = (user_name,)
-    USERNAME_FIELD = (user_name,)
 
     def __str__(self):
-        return self.user_name
+        return self.username
 
 
 class student(models.Model):
