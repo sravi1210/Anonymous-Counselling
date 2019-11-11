@@ -1,7 +1,9 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from .models import counsellor
-# Create your views here.
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
 
-def login(request):
-    return render(request, 'chat/index.html')
+from .forms import Counsellorform
+
+class SignUpView(CreateView):
+    form_class = Counsellorform
+    success_url = reverse_lazy('login')
+    template_name = 'signup.html'
