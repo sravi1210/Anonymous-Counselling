@@ -6,7 +6,7 @@ from .models import counsellor
 class Counsellorform(UserCreationForm):
     class Meta:
         model = counsellor
-        fields = ('username', 'user_information')
+        fields = ('username', 'user_information', 'password')
 
 
 class Counselloreditform(UserChangeForm):
