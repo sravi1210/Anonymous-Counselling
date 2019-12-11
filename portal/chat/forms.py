@@ -12,4 +12,5 @@ class Counsellorform(UserCreationForm):
 class Counselloreditform(UserChangeForm):
     class Meta:
         model = counsellor
-        fields = ('username', 'user_information')
+        fields = ('user_information', 'email')
+

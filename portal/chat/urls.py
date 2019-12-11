@@ -1,7 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import SignUpView
+from . import views
+from .models import counsellor
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
-    path('signup/', SignUpView.as_view(), name='signup'),
+    path('signup/', views.SignUpView.as_view(), name='signup'),
+    path('update/', views.Update.as_view(), name='update'),
 ]
