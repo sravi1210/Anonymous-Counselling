@@ -13,4 +13,3 @@ class Counselloreditform(UserChangeForm):
     class Meta:
         model = counsellor
         fields = ('user_information', 'email')
-
