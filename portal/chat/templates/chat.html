@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Profile{% endblock %}
+
+{% block content %}
+<h2>Sign up</h2>
+    <div>
+        <h3>user</h3>
+        {% for m in m1 %}
+            <li>
+                {{ m.message }}
+            </li>
+        {% endfor %}
+    </div>
+    <div>
+        <h3>counsellor</h3>
+        {% for m in m2 %}
+            <li>
+                {{ m.message }}
+            </li>
+        {% endfor %}
+    </div>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">send</button>
+</form>
+{% endblock %}
