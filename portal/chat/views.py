@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render_to_response, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -23,18 +23,18 @@ class Update(LoginRequiredMixin, CreateView):
     template_name = 'update.html'
 
 
-def I_want_to_talk(request):
-    return render(request, 'chat.html')
-
-
 def Chat(request):
+
     if request.method == 'POST':
-        form = Message(request.POST)
+        form = Message(request.POST, instance=messages)
         if request.user == models.counsellor:
-            form.messages.message_from = 1
+            form.message_from = 1
         else:
-            form.messages.message_from = 0
-        m1 = messages.objects.all().filter(message_from=0).sort(key=messages.message_time)[:10]
-        m2 = messages.objects.all().filter(message_from=1).sort(key=messages.message_time)[:10]
-        if form.is_valid():
-            return render(request, 'chat.html', context={'m1': m1, 'm2': m2})
+            form.message_from = 0
+        m1 = messages.objects.all().filter(message_from=0)[:10]
+        m2 = messages.objects.all().filter(message_from=1)[:10]
+        return render(request, 'chat.html', context={'m1': m1, 'm2': m2, 'form': form},)
+    else:
+        form = Message(instance=messages)
+        args = {'form': form}
+        return render(request, 'chat.html', args)
