@@ -23,11 +23,18 @@ class Update(LoginRequiredMixin, CreateView):
     template_name = 'update.html'
 
 
-def Chat(request, p):
+def I_want_to_talk(request):
+    return render(request, 'chat.html')
+
+
+def Chat(request):
     if request.method == 'POST':
         form = Message(request.POST)
-        form.messages.message_from = p
-        m1 = messages.objects.all().filter(message_from=1).sort(key=messages.message_time)[:10]
-        m2 = messages.objects.all().filter(message_from=0).sort(key=messages.message_time)[:10]
+        if request.user == models.counsellor:
+            form.messages.message_from = 1
+        else:
+            form.messages.message_from = 0
+        m1 = messages.objects.all().filter(message_from=0).sort(key=messages.message_time)[:10]
+        m2 = messages.objects.all().filter(message_from=1).sort(key=messages.message_time)[:10]
         if form.is_valid():
             return render(request, 'chat.html', context={'m1': m1, 'm2': m2})
