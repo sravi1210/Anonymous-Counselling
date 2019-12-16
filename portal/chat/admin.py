@@ -7,6 +7,8 @@ from .models import counsellor, student, Chatroom, messages
 
 admin.site.register(counsellor)
 admin.site.register(student)
+admin.site.register(messages)
+admin.site.register(Chatroom)
 
 
 class CustomUserAdmin(UserAdmin):
