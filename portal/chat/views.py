@@ -25,12 +25,10 @@ class Update(LoginRequiredMixin, CreateView):
 
 
 def Chat(request):
-
-    # print(settings.AUTH_USER_MODEL)
     if request.method == 'POST':
         form = Message(request.POST)
         msg = form.save(commit=False)
-        if settings.AUTH_USER_MODEL == "chat.counsellor":  # correct this
+        if models.counsellor.__instancecheck__(request.user):
             msg.message_from = 1
         else:
             msg.message_from = 0
@@ -39,7 +37,7 @@ def Chat(request):
         m1 = messages.objects.all().filter(message_from=0)
         m2 = messages.objects.all().filter(message_from=1)
 
-        return render(request, 'chat.html', context={'m1': m1, 'm2': m2, 'form': form},)
+        return render(request, 'chat.html', context={'m1': m1, 'm2': m2, 'form': form}, )
     else:
         form = Message(instance=messages)
         args = {'form': form}
