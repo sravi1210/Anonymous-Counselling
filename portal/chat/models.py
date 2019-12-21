@@ -25,10 +25,14 @@ class student(models.Model):
 class Chatroom(models.Model):
     Chatroom_id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    Counsellor = models.ForeignKey(counsellor, on_delete='SET_NULL')
+    Counsellor = models.ForeignKey(counsellor, on_delete=models.CASCADE,null=True)
+    active_status=models.BooleanField(default=False)
     Student = models.ForeignKey(student, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
     abort = models.BooleanField(default=False)
+    class Meta: 
+        ordering = ['start_time']
+    
 
 
 class messages(models.Model):
@@ -36,5 +40,5 @@ class messages(models.Model):
         primary_key=True, default=uuid.uuid4, editable=False)
     message = models.TextField(max_length=1000)
     message_from = models.BooleanField(default=0)
-    # chat_session = models.ForeignKey(Chatroom, on_delete=models.CASCADE) # add this later
-    # message_time = models.DateTimeField()                                # add this later
+    chat_session = models.ForeignKey(Chatroom, on_delete=models.CASCADE,null=True)
+    message_time = models.DateTimeField(null=True)                                

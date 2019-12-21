@@ -7,13 +7,13 @@
   Hi {{ user.username }}!
   <p><a href="{% url 'logout' %}">logout</a></p>
   <a href="{% url 'update' %}">update</a>
-  <a href="{% url 'chatroom' %}">Give me a student</a>
+  <a href="{% url 'Recent' %}">Give me a student</a>
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">login</a>
   <a href="{% url 'signup' %}">signup</a>
     <div>
-        <a href="{% url 'chatroom' %}">I want to talk</a>
+        <a href="{% url 'studentCounselling' %}">I want to talk</a>
     </div>
 {% endif %}
 {% endblock %}
