@@ -47,8 +47,8 @@ def Chat(request,chatroom_id):
             return render(request, 'chat.html', context={'m1': m1, 'm2': m2, 'form': form}, )
         else:
             chat = Chatroom.objects.filter(pk=chatroom_id)
+            couns=chat.Counsellor
             chat.delete()
-            couns = counsellor.objects.get(pk=request.user.id)
             couns.user_status = 0
             couns.save()
             return HttpResponseRedirect(reverse('home'))
