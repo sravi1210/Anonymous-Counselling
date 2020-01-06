@@ -46,7 +46,9 @@ def Chat(request,chatroom_id):
 
             return render(request, 'chat.html', context={'m1': m1, 'm2': m2, 'form': form}, )
         else:
-            chat = Chatroom.objects.filter(pk=chatroom_id)
+            chat = Chatroom.objects.get(pk=chatroom_id)
+            print(chat)
+            print("HELLO")
             couns=chat.Counsellor
             chat.delete()
             couns.user_status = 0
