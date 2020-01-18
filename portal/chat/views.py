@@ -48,8 +48,6 @@ def Chat(request,chatroom_id):
             return render(request, 'chat.html', context={'m1': m1, 'm2': m2, 'form': form}, )
         else:
             chat = Chatroom.objects.get(pk=chatroom_id)
-            print(chat)
-            print("HELLO")
             couns=chat.Counsellor
             chat.delete()
             couns.user_status = 0
@@ -74,7 +72,7 @@ def studentCounselling(request):
             chat = Chatroom.objects.create(start_time=now(), Student=stud)
             chat.save()
             return HttpResponseRedirect(reverse('chatroom', args=(chat.Chatroom_id,)))
-    return HttpResponseRedirect(reverse('studentCounselling'))
+    return render(request, 'studentCounselling.html')
 
 
 def Recent(request):
