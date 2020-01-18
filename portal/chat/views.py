@@ -5,13 +5,14 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
-from chat import models
+from . import models
 from .forms import Counsellorform
 from .forms import Counselloreditform
 from .forms import Message
 from .models import messages,student,Chatroom,counsellor
 from datetime import datetime
 from django.urls import reverse
+from django.utils.timezone import now
 
 
 class SignUpView(CreateView):
@@ -38,7 +39,7 @@ def Chat(request,chatroom_id):
                 msg.message_from = 0
             chat = Chatroom.objects.filter(pk=chatroom_id)
             msg.chat_session = chat[0]
-            msg.message_time = datetime.now()
+            msg.message_time =now()
             msg.save()
             form = Message(instance=messages)
             m1 = chat[0].messages_set.all().filter(message_from=0)
@@ -65,16 +66,15 @@ def Chat(request,chatroom_id):
 
 def studentCounselling(request):
 
-    stud=student.objects.create()
-    stud.student_status=True
-    stud.save()
-    chat = Chatroom.objects.create(start_time=datetime.now(),Student=stud)
-    chat.save()
     for m in models.counsellor.objects.all():
-        if m.user_status:
+        if m.user_status==0:
+            stud = student.objects.create()
+            stud.student_status = True
+            stud.save()
+            chat = Chatroom.objects.create(start_time=now(), Student=stud)
+            chat.save()
             return HttpResponseRedirect(reverse('chatroom', args=(chat.Chatroom_id,)))
-    else:
-        return HttpResponseRedirect(reverse('studentCounselling'))
+    return HttpResponseRedirect(reverse('studentCounselling'))
 
 
 def Recent(request):

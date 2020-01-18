@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.timezone import now
 
 # Create your models here.
 
@@ -41,4 +42,4 @@ class messages(models.Model):
     message = models.TextField(max_length=1000)
     message_from = models.BooleanField(default=0)
     chat_session = models.ForeignKey(Chatroom, on_delete=models.CASCADE,null=True)
-    message_time = models.DateTimeField(null=True)                                
+    message_time = models.DateTimeField(null=True)
