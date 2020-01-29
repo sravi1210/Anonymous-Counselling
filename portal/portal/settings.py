@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'chat.middleware.middleware.SessionExpiredMiddleware'
 ]
 
 ROOT_URLCONF = 'portal.urls'
@@ -72,8 +73,11 @@ TEMPLATES = [
     },
 ]
 
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 WSGI_APPLICATION = 'portal.wsgi.application'
-
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+SESSION_SAVE_EVERY_REQUEST = True
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -119,7 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR,'assets'),) 
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'assets'),)
 AUTH_USER_MODEL = 'chat.counsellor'
 
 AUTHENTICATION_BACKENDS = (

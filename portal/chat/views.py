@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect , HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
@@ -9,11 +10,10 @@ from . import models
 from .forms import Counsellorform
 from .forms import Counselloreditform
 from .forms import Message
-from .models import messages,student,Chatroom,counsellor
+from .models import messages, student, Chatroom, counsellor
 from datetime import datetime
 from django.urls import reverse
 from django.utils.timezone import now
-
 
 class SignUpView(CreateView):
     form_class = Counsellorform
@@ -27,7 +27,18 @@ class Update(LoginRequiredMixin, CreateView):
     template_name = 'update.html'
 
 
-def Chat(request,chatroom_id):
+def Chat(request, chatroom_id):
+    try:
+        t = models.Chatroom.objects.get(pk=chatroom_id)
+    except ObjectDoesNotExist:
+        if(request.user.is_authenticated):
+            request.user.user_status = 0
+        return HttpResponseRedirect(reverse('home'))
+    if request.user.is_authenticated==0:
+        request.session.set_test_cookie()
+        request.session['chatroom'] = Chatroom.objects.get(pk=chatroom_id).Student.id
+        request.session['last_activity'] = datetime.now()
+        request.session['chat'] = chatroom_id
     if request.method == 'POST':
         if 'chat' in request.POST:
 
@@ -39,7 +50,7 @@ def Chat(request,chatroom_id):
                 msg.message_from = 0
             chat = Chatroom.objects.filter(pk=chatroom_id)
             msg.chat_session = chat[0]
-            msg.message_time =now()
+            msg.message_time = now()
             msg.save()
             form = Message(instance=messages)
             m1 = chat[0].messages_set.all().filter(message_from=0)
@@ -47,9 +58,9 @@ def Chat(request,chatroom_id):
 
             return render(request, 'chat.html', context={'m1': m1, 'm2': m2, 'form': form}, )
         else:
-            chat = Chatroom.objects.get(pk=chatroom_id)
-            couns=chat.Counsellor
-            chat.delete()
+            stud = Chatroom.objects.get(pk=chatroom_id).Student
+            couns = Chatroom.objects.get(pk=chatroom_id).Counsellor
+            stud.delete()
             couns.user_status = 0
             couns.save()
             return HttpResponseRedirect(reverse('home'))
@@ -60,12 +71,10 @@ def Chat(request,chatroom_id):
         args = {'form': form}
         return render(request, 'chat.html', args)
 
-        
 
 def studentCounselling(request):
-
     for m in models.counsellor.objects.all():
-        if m.user_status==0:
+        if m.user_status == 0:
             stud = student.objects.create()
             stud.student_status = True
             stud.save()
@@ -76,22 +85,21 @@ def studentCounselling(request):
 
 
 def Recent(request):
-
     if request.user.is_authenticated:
-        ac=Chatroom.objects.all().filter(active_status=0)
+        ac = Chatroom.objects.all().filter(active_status=0)
 
-        if(ac.count!=0):    
+        if (ac.count != 0):
             try:
 
-                availablechatroom=ac[0]#0 or n-1 dekh lio
-                couns=counsellor.objects.get(pk=request.user.id)
-                availablechatroom.active_status=1
-                availablechatroom.Counsellor=couns#pta ni shi hoga ya nhi
-                chatroom_id=availablechatroom.Chatroom_id
-                couns.user_status=1
+                availablechatroom = ac[0]  # 0 or n-1 dekh lio
+                couns = counsellor.objects.get(pk=request.user.id)
+                availablechatroom.active_status = 1
+                availablechatroom.Counsellor = couns  # pta ni shi hoga ya nhi
+                chatroom_id = availablechatroom.Chatroom_id
+                couns.user_status = 1
                 availablechatroom.save()
                 couns.save()
-                
+
                 return HttpResponseRedirect(reverse('chatroom', args=(chatroom_id,)))
             except IndexError:
                 return HttpResponse("There are no students right now")
