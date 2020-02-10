@@ -11,7 +11,7 @@ class SessionExpiredMiddleware(MiddlewareMixin):
     def process_request(self, request):
         now = datetime.now()
         if request.user.is_authenticated==0:
-            if request.session.has_key('last_activity') and request.session.has_key('chatroom') and (now - request.session['last_activity']).seconds > 20:
+            if request.session.has_key('last_activity') and request.session.has_key('chatroom') and (now - request.session['last_activity']).seconds > 200:
                 try:
                     stud = models.student.objects.get(pk=request.session['chatroom'])
                     couns = models.Chatroom.objects.get(pk=request.session['chat']).Counsellor
@@ -22,5 +22,3 @@ class SessionExpiredMiddleware(MiddlewareMixin):
                     return HttpResponseRedirect(reverse('home'))
                 except ObjectDoesNotExist:
                     messages.add_message(request, messages.ERROR, 'Your session has been timed out.')
-            else:
-                request.session['last_activity'] = now

@@ -3,31 +3,46 @@
 {% block title %}Chatroom{% endblock %}
 
 {% block content %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <h2>Chat</h2>
-    <div>
-        <h3>user</h3>
-        {% for m in m1 %}
-            <li>
-                {{ m.message }}
-            </li>
-        {% endfor %}
-    </div>
-    <div>
-        <h3>counsellor</h3>
-        {% for m in m2 %}
-            <li>
-                {{ m.message }}
-            </li>
-        {% endfor %}
-    </div>
+    <p class='msgs' id='msgs'>
+    </p>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <input type="submit" name="chat" value="Send" />
+  <input type="submit" name="chat" value="Send"/>
 </form>
 <br><br><br>
 <form method="post" >
   {% csrf_token %}
   <input type="submit" name="chat2"  value="Abort" />
 </form>
+
+<script>
+        function refresh() {
+		$.ajax({
+			url: '/chat/chatroom_refresh/{{ chatroomid }}',
+			success: function(data) {
+
+				x = JSON.parse(data["m"]);
+                var htm='';
+				for(var i=0; i<x.length; i++){
+					if(x[i]['fields']['message_from']==0) htm+='<div class="row"> <div class="col-xs-4"></div><div class="col-xs-8"><p style="text-align:right; color:white; font-size:16px; border-radius:5px; padding:2px; padding-right:6px; padding-left:6px; background-color:#0084ff; ">'+x[i]['fields']['message']+'</p></div></div>';
+					else  htm+='<div class="row"><div class="col-xs-8"><p style="text-align:left; border-radius:5px; padding:2px; background-color:#f1f0f0; padding-right:6px; padding-left:6px; font-size:16px; ">'+x[i]['fields']['message']+'</p></div><div class="col-xs-4"></div></div>';
+				}
+                $('.msgs').html(htm);
+
+			},
+			error: function(){
+				console.log('Ajax Error');
+			}
+			});
+	}
+
+	$(function(){
+		refresh();
+	});
+	refresh();
+	setInterval("refresh()", 1000);
+</script>
 {% endblock %}

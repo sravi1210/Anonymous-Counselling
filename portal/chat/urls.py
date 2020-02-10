@@ -11,4 +11,5 @@ urlpatterns = [
     path('chatroom/<uuid:chatroom_id>', views.Chat, name='chatroom'),
     path('studentCounselling/', views.studentCounselling, name='studentCounselling'),
     path('Recent/', views.Recent, name='Recent'),
+    path('chatroom_refresh/<uuid:chatroom_id>', views.messagerefresh, name='chatroomrefresh'),
 ]

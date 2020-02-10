@@ -1,5 +1,7 @@
+import json
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
+from django.core import serializers
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.urls import reverse_lazy
@@ -14,6 +16,7 @@ from .models import messages, student, Chatroom, counsellor
 from datetime import datetime
 from django.urls import reverse
 from django.utils.timezone import now
+from django.views.decorators.csrf import csrf_exempt
 
 class SignUpView(CreateView):
     form_class = Counsellorform
@@ -53,10 +56,9 @@ def Chat(request, chatroom_id):
             msg.message_time = now()
             msg.save()
             form = Message(instance=messages)
-            m1 = chat[0].messages_set.all().filter(message_from=0)
-            m2 = chat[0].messages_set.all().filter(message_from=1)
+            m = chat[0].messages_set.all()
 
-            return render(request, 'chat.html', context={'m1': m1, 'm2': m2, 'form': form}, )
+            return render(request, 'chat.html', context={'m': m, 'form': form , 'chatroomid': chatroom_id}, )
         else:
             stud = Chatroom.objects.get(pk=chatroom_id).Student
             stud.delete()
@@ -68,6 +70,13 @@ def Chat(request, chatroom_id):
         args = {'form': form}
         return render(request, 'chat.html', args)
 
+
+
+def messagerefresh(request, chatroom_id):
+    chat = Chatroom.objects.filter(pk=chatroom_id)
+    m = chat[0].messages_set.all()
+    m = serializers.serialize('json', m)
+    return JsonResponse({'m': m, 'chatroomid': chatroom_id},safe=False)
 
 def studentCounselling(request):
     for m in models.counsellor.objects.all():
