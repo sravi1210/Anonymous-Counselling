@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p><a href="{% url 'logout' %}">logout</a></p>
+  <a href="{% url 'update' %}">update</a>
+  <a href="{% url 'Recent' %}" target="_blank">Give me a student</a>
+<p>NO OF STUDENTS WAITING TO BE COUNSELLED </p>
+<p class="students_waiting" id="students_waiting">NO OF STUDENTS WAITING TO BE COUNSELLED </p>
+{% else %}
+  <p>You are not logged in,This is only for Counsellors.</p>
+  <a href="{% url 'login' %}">LOGIN IF YOU ARE A COUNSELLOR</a>
+  <a href="{% url 'home' %}">NOT A COUNSELLOR-HOME</a>
+{% endif %}
+<script>
+        function refresh() {
+		$.ajax({
+			url: '/chat/waiting_students',
+			success: function(data) {
+
+				x = JSON.parse(data["data"]);
+                var htm='';
+				for(var i=0; i<x.length; i++){
+
+				}
+                console.log(x.length);
+				 $('.students_waiting').html(x.length);
+            },
+			error: function(){
+				console.log('Ajax Error');
+			}
+			});
+	}
+
+	$(function(){
+		refresh();
+	});
+	refresh();
+	setInterval("refresh()", 1000);
+</script>
+{% endblock %}

@@ -35,7 +35,7 @@ def Chat(request, chatroom_id):
         t = models.Chatroom.objects.get(pk=chatroom_id)
     except ObjectDoesNotExist:
         if(request.user.is_authenticated):
-            request.user.user_status = 0
+            return HttpResponseRedirect(reverse('counsellor'))
         return HttpResponseRedirect(reverse('home'))
     if request.user.is_authenticated==0:
         request.session.set_test_cookie()
@@ -62,6 +62,8 @@ def Chat(request, chatroom_id):
         else:
             stud = Chatroom.objects.get(pk=chatroom_id).Student
             stud.delete()
+            if (request.user.is_authenticated):
+                return HttpResponseRedirect(reverse('counsellor'))
             return HttpResponseRedirect(reverse('home'))
 
 
@@ -102,7 +104,6 @@ def Recent(request):
                 availablechatroom.active_status = 1
                 availablechatroom.Counsellor = couns  # pta ni shi hoga ya nhi
                 chatroom_id = availablechatroom.Chatroom_id
-                couns.user_status = 0
                 availablechatroom.save()
                 couns.save()
 
@@ -111,3 +112,9 @@ def Recent(request):
                 return HttpResponse("There are no students right now")
         else:
             return HttpResponse("There are no students right now")
+
+def available_chatroom(request):
+    if request.user.is_authenticated:
+        data = Chatroom.objects.all().filter(active_status=0)
+        data = serializers.serialize('json', data)
+        return JsonResponse({'data': data})

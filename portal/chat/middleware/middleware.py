@@ -14,8 +14,6 @@ class SessionExpiredMiddleware(MiddlewareMixin):
             if request.session.has_key('last_activity') and request.session.has_key('chatroom') and (now - request.session['last_activity']).seconds > 200:
                 try:
                     stud = models.student.objects.get(pk=request.session['chatroom'])
-                    couns = models.Chatroom.objects.get(pk=request.session['chat']).Counsellor
-                    couns.user_status = 0
                     stud.delete()
                     del request.session
                     messages.add_message(request, messages.ERROR, 'Your session has been timed out.')

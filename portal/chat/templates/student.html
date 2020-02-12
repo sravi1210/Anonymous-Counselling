@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  <p>You are a Counsellor please proceede to Counsellor Page</p>
+  <a href="{% url 'counsellor' %}">LETS COUNSEL</a>
+{% else %}
+    <div>
+        <a href="{% url 'studentCounselling' %}">Connect me to a counsellor</a>
+    </div>
+{% endif %}
+{% endblock %}
