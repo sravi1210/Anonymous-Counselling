@@ -2,9 +2,17 @@
 
 {% block title %}Chatroom{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="/static/chat.css"/>
+{% endblock %}
+
 {% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<h2>Chat</h2>
+<div class="centered1">
+		<hr size="5">
+		<h1 id="sam">Chat</h1>
+		<hr size="5">
+</div>
     <p class='msgs' id='msgs'>
     </p>
 <form method="post">
