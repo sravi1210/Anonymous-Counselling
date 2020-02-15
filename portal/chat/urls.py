@@ -12,7 +12,7 @@ urlpatterns = [
     path('studentCounselling/', views.studentCounselling, name='studentCounselling'),
     path('Recent/', views.Recent, name='Recent'),
     path('chatroom_refresh/<uuid:chatroom_id>', views.messagerefresh, name='chatroomrefresh'),
-    path('counsellor',TemplateView.as_view(template_name='counsellor.html'), name='counsellor'),
+    path('counsellor',views.counsellor_portal, name='counsellor'),
     path('student',TemplateView.as_view(template_name='student.html'), name='student'),
     path('waiting_students', views.available_chatroom, name='waiting_students'),
 ]
