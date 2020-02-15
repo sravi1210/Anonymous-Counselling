@@ -11,6 +11,21 @@
   <a href="{% url 'Recent' %}" target="_blank">Give me a student</a>
 <p>NO OF STUDENTS WAITING TO BE COUNSELLED </p>
 <p class="students_waiting" id="students_waiting">NO OF STUDENTS WAITING TO BE COUNSELLED </p>
+<div>
+    <script>
+        console.log({{ m }});
+    </script>
+    <p>AVAILABILITY STATUS </p>
+    {% if m == 1 %}
+        <p>AVAILABLE</p>
+    {% else %}
+        <p>UNAVAILABLE</p>
+    {% endif %}
+<form method="post" >
+    {% csrf_token %}
+    <input type="submit" name="change_status"  value="CHANGE_STATUS" />
+</form>
+</div>
 {% else %}
   <p>You are not logged in,This is only for Counsellors.</p>
   <a href="{% url 'login' %}">LOGIN IF YOU ARE A COUNSELLOR</a>
