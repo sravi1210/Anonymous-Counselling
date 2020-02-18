@@ -3,36 +3,16 @@
 {% block title %}Chatroom{% endblock %}
 {% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    {% load static %}
-    <!-- <script type="text/javascript" src="{% static 'chat/js/chat.js' %}"></script> -->
-    <link rel="stylesheet" type="text/css" href="{% static 'chat/css/chat.css' %}">
-	<div class="block--background">
-		<div class="chatbot__overview">
-			<div class="chatlist">
-				<div align="left">
-					hiii
-				</div>
-				<div align="right">
-					eyyyyy
-				</div>
-			</div>
-		</div>
-		<div class="chatbox-area">
-			<form id="chatform" action="" method="post">
-				<!-- <textarea class="chatbox" name="chatbox" placeholder="Talk to me!">
-				</textarea>  -->
-				{% csrf_token %}
-				<p>
-					<!-- <label for="id_message" >Message:</label>  -->
-					<textarea required class="chatbox" name="message" required id="id_message" placeholder="Type Message Here"></textarea>
-				</p>
-				<input type="submit" name="chat" value="Send"/>
-				<!-- <input class="submit-button" type="submit" value="send" /> -->
-				<input type="submit" name="chat2"  value="Abort" /> 
-			</form>
-		</div>
-		<div class="block--background">&nbsp;</div>
+	<div class="chatlist">
 	</div>
+	<form method="post">
+		{% csrf_token %}
+		<p>
+			<textarea name="message" placeholder="Type Message Here"></textarea>
+		</p>
+		<input type="submit" name="chat" value="Send"/>
+		<input type="submit" name="chat2"  value="Abort" /> 
+	</form>
 
 <script>
         function refresh() {
@@ -43,8 +23,8 @@
                 var htm='';
 				for(var i=0; i<x.length; i++){
 					if(x[i]['fields']['message_from']==0) 
-						htm+='<div align="left"><p style="text-align:right; color:white; font-size:16px; border-radius:5px; padding:2px; padding-right:6px; padding-left:6px; background-color:#0084ff; ">'+x[i]['fields']['message']+'</p></div>';
-					else  htm+='<div align="right"><p style="text-align:left; border-radius:5px; padding:2px; background-color:#f1f0f0; padding-right:6px; padding-left:6px; font-size:16px; ">'+x[i]['fields']['message']+'</p></div>';
+						htm+='<div ><p align="left" style="text-align:right; color:white; font-size:16px; border-radius:5px; padding:2px; padding-right:6px; padding-left:6px; background-color:#0084ff; ">'+x[i]['fields']['message']+'</p></div>';
+					else  htm+='<div><p align="right" class="a" style="text-align:left; border-radius:5px; padding:2px; background-color:#f1f0f0; padding-right:6px; padding-left:6px; font-size:16px; ">'+x[i]['fields']['message']+'</p></div>';
 				}
                 $('.chatlist').html(htm);
 			},

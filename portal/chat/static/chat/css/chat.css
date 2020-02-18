@@ -128,7 +128,7 @@ body {
   font-size: 1em;
   display: flex;
   flex-flow: column nowrap;
-  overflow-x: hidden;
+  overflow-x:scroll;
   width: 100%;
   max-width: 35em;
   max-height: 75vh;
@@ -251,4 +251,8 @@ input[type="submit"]:hover {
 
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.3);
+}
+
+.a{
+  overflow: auto;
 }
