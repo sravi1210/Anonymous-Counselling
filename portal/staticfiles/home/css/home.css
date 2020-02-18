@@ -1,24 +1,30 @@
-/*body{
-	background-image:url("bluebackground.jpg");
-}*/
+body{
+  background-image:url("https://s3-ap-south-1.amazonaws.com/blogmindler/bloglive/wp-content/uploads/2019/03/11113602/How-to-Become-a-Counsellor-in-India.png");
+  /* background-color: #edadc8; */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 h1{
-	color: white;
+	color: #D9534F;
 }
 
+#white{
+  color: white;
+}
 #sam{
 	color:black;
 	font-family: 'Noto Sans KR', sans-serif;
-	font-weight:700;
+	font-weight:1000;
 	font-size: 50px;
 }
 .split {
-  height: 25%;
-  width: 50%;
+  height: 70%;
+  width: 44%;
   position: fixed;
   z-index: 1;
   top: 20;
   overflow-x: hidden;
-  padding-top: 120px;
+  /* padding-top: 120px; */
 }
 
 hr{
@@ -27,8 +33,13 @@ hr{
 /* Control the left side */
 .left {
   left: 0;
-  background-color: red;
-  margin-top: 17%;
+  /* background-color: #874C62; */
+  /* background-image: url("https://keycareandsupport.com/wp-content/uploads/2017/09/Doctor-Avatar-split-05.jpg"); */
+  /* background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain; */
+  margin-top: 7%;
+  /* right: 0%; */
   margin-left: 100px;
 }
 
@@ -38,9 +49,11 @@ hr{
 /* Control the right side */
 .right {
   right: 0;
-  margin-top: 17%;
+  margin-top: 7%;
+  /* left:0%; */
   margin-right: 100px;
-  background-color: #e06371;
+  /* background-color: #e06371; */
+  /* background-color: #d9c214; */
 }
 
 /* If you want the content centered horizontally and vertically */
@@ -54,7 +67,7 @@ hr{
 
 .centered1 {
   position: absolute;
-  top: 10%;
+  top: 6%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;

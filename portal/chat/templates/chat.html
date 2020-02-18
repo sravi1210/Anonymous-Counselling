@@ -1,52 +1,58 @@
 {% extends 'base.html' %}
 
 {% block title %}Chatroom{% endblock %}
-
-{% block extra_head %}
-<link rel="stylesheet" href="/static/chat.css"/>
-{% endblock %}
-
 {% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<div class="centered1">
-		<hr size="5">
-		<h1 id="sam">Chat</h1>
-		<hr size="5">
-</div>
-    <p class='msgs' id='msgs'>
-    </p>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" name="chat" value="Send"/>
-</form>
-<br><br><br>
-<form method="post" >
-  {% csrf_token %}
-  <input type="submit" name="chat2"  value="Abort" />
-</form>
+    {% load static %}
+    <!-- <script type="text/javascript" src="{% static 'chat/js/chat.js' %}"></script> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'chat/css/chat.css' %}">
+	<div class="block--background">
+		<div class="chatbot__overview">
+			<div class="chatlist">
+				<div align="left">
+					hiii
+				</div>
+				<div align="right">
+					eyyyyy
+				</div>
+			</div>
+		</div>
+		<div class="chatbox-area">
+			<form id="chatform" action="" method="post">
+				<!-- <textarea class="chatbox" name="chatbox" placeholder="Talk to me!">
+				</textarea>  -->
+				{% csrf_token %}
+				<p>
+					<!-- <label for="id_message" >Message:</label>  -->
+					<textarea required class="chatbox" name="message" required id="id_message" placeholder="Type Message Here"></textarea>
+				</p>
+				<input type="submit" name="chat" value="Send"/>
+				<!-- <input class="submit-button" type="submit" value="send" /> -->
+				<input type="submit" name="chat2"  value="Abort" /> 
+			</form>
+		</div>
+		<div class="block--background">&nbsp;</div>
+	</div>
 
 <script>
         function refresh() {
 		$.ajax({
 			url: '/chat/chatroom_refresh/{{ chatroomid }}',
-			success: function(data) {
-
+			success: function(data){
 				x = JSON.parse(data["m"]);
                 var htm='';
 				for(var i=0; i<x.length; i++){
-					if(x[i]['fields']['message_from']==0) htm+='<div class="row"> <div class="col-xs-4"></div><div class="col-xs-8"><p style="text-align:right; color:white; font-size:16px; border-radius:5px; padding:2px; padding-right:6px; padding-left:6px; background-color:#0084ff; ">'+x[i]['fields']['message']+'</p></div></div>';
-					else  htm+='<div class="row"><div class="col-xs-8"><p style="text-align:left; border-radius:5px; padding:2px; background-color:#f1f0f0; padding-right:6px; padding-left:6px; font-size:16px; ">'+x[i]['fields']['message']+'</p></div><div class="col-xs-4"></div></div>';
+					if(x[i]['fields']['message_from']==0) 
+						htm+='<div align="left"><p style="text-align:right; color:white; font-size:16px; border-radius:5px; padding:2px; padding-right:6px; padding-left:6px; background-color:#0084ff; ">'+x[i]['fields']['message']+'</p></div>';
+					else  htm+='<div align="right"><p style="text-align:left; border-radius:5px; padding:2px; background-color:#f1f0f0; padding-right:6px; padding-left:6px; font-size:16px; ">'+x[i]['fields']['message']+'</p></div>';
 				}
-                $('.msgs').html(htm);
-
+                $('.chatlist').html(htm);
 			},
 			error: function(){
 				console.log('Ajax Error');
-			}
+				}
 			});
-	}
-
+		}
 	$(function(){
 		refresh();
 	});
