@@ -16,9 +16,11 @@
 <body>
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">logout</a></p>
-  <a href="{% url 'update' %}">update</a>
-  <a href="{% url 'counsellor' %}">LETS COUNSEL</a>
+  <p>
+    <button onclick="location.href = '{% url 'logout' %}';" type="button" class="btn btn-light">LOGOUT</button>
+  </p>
+  <button onclick="location.href = '{% url 'update' %}';" type="button" class="btn btn-light">UPDATE PROFILE</button>
+  <button onclick="location.href = '{% url 'counsellor' %}';" type="button" class="btn btn-light">LETS COUNSEL</button>
 {% else %}
     <!-- <a href="{% url 'signup' %}">signup</a> -->
   <div>

@@ -3,14 +3,17 @@
 {% block title %}Chatroom{% endblock %}
 {% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<div class="chatlist">
+	<div class="chat">
 	</div>
 	<form method="post">
 		{% csrf_token %}
 		<p>
-			<textarea name="message" placeholder="Type Message Here"></textarea>
+			<textarea required name="message" placeholder="Type Message Here"></textarea>
 		</p>
 		<input type="submit" name="chat" value="Send"/>
+	</form>
+	<form method="post">
+		{% csrf_token %}
 		<input type="submit" name="chat2"  value="Abort" /> 
 	</form>
 
@@ -26,7 +29,7 @@
 						htm+='<div ><p align="left" style="text-align:right; color:white; font-size:16px; border-radius:5px; padding:2px; padding-right:6px; padding-left:6px; background-color:#0084ff; ">'+x[i]['fields']['message']+'</p></div>';
 					else  htm+='<div><p align="right" class="a" style="text-align:left; border-radius:5px; padding:2px; background-color:#f1f0f0; padding-right:6px; padding-left:6px; font-size:16px; ">'+x[i]['fields']['message']+'</p></div>';
 				}
-                $('.chatlist').html(htm);
+                $('.chat').html(htm);
 			},
 			error: function(){
 				console.log('Ajax Error');

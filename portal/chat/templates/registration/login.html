@@ -25,9 +25,15 @@
 							<h2> &nbsp;Counsellor Login &nbsp;</h2>
 						</center>
 						<div class="text-box">
-							<!-- <i class="fa fa-lock"></i> -->
 							{% csrf_token %}
-							{{ form.as_p }}
+							<p>
+								<label for="id_username">Username:</label> 
+								<input required type="text" name="username" autofocus required id="id_username" placeholder="Enter Username Here">
+							</p>
+							<p>
+								<label for="id_password">Password:</label> 
+								<input required type="password" name="password" required id="id_password" placeholder="Enter Password Here">
+							</p>
 						</div>
 						<center>
 							<button
@@ -40,14 +46,6 @@
 				</center>
 			</form>
 		</div>
-		<script type="text/javascript">
-			$("#login_button").click(
-				function () {
-					$("#login_button").hide();
-					$("#loginProgress").show();
-				});
-		</script>
-
 	</div>
 </body>
 

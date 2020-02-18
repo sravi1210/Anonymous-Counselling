@@ -6,9 +6,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">logout</a></p>
-  <a href="{% url 'update' %}">update</a>
-  <a href="{% url 'Recent' %}" target="_blank">Give me a student</a>
+    <p>
+        <button onclick="location.href = '{% url 'logout' %}';" type="button" class="btn btn-light">LOGOUT</button>
+    </p>
+    <button onclick="location.href = '{% url 'update' %}';" type="button" class="btn btn-light">UPDATE</button>
+    <a href="{% url 'Recent' %}" target="_blank">Give me a student</a> 
 <p>NO OF STUDENTS WAITING TO BE COUNSELLED </p>
 <p class="students_waiting" id="students_waiting">NO OF STUDENTS WAITING TO BE COUNSELLED </p>
 <div>
