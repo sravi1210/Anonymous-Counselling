@@ -2,13 +2,12 @@
 {% block title %}Update Profile{% endblock %}
 
 {% block content %}
-<h2>Updatep</h2>
+<h2>Update Profile</h2>
 <form method="post">
-  {% csrf_token %}
-  {% bootstrap_form form %}
-    {% buttons %}
-        <button type="submit" class="btn btn-primary">Update</button>
-    {% endbuttons %}
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Update</button>
+
 </form>
 
 {% endblock %}
