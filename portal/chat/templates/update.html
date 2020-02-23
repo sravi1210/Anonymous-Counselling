@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
-
+{% load bootstrap4 %}
 {% block title %}Update Profile{% endblock %}
 
 {% block content %}
-<h2>Sign up</h2>
+<h2>Updatep</h2>
 <form method="post">
   {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Update</button>
+  {% bootstrap_form form %}
+    {% buttons %}
+        <button type="submit" class="btn btn-primary">Update</button>
+    {% endbuttons %}
 </form>
+
 {% endblock %}
