@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container" style="color :green; text-align:center;">
+    <img src="https://image.shutterstock.com/image-vector/male-silhouette-avatar-profile-picture-260nw-199246382.jpg">
+    <p>
+        <h2> Hi {{ user.username }}!</h2>
+    </p>
+</div>
+
+<div class="container">
+
+
+
+</div>
+<div class="container" style="color:blue; text-align:center;">
+    <a href="{% url 'Recent' %}" target="_blank" class="btn btn-light">
+        <h3>Give me a student</h3>
+    </a>
+
+</div>
+
+<div class="container">
+    <p style="color:green; text-align:center;">STUDENTS WAITING TO BE COUNSELLED</p>
+    <p style="color :green; text-align:center;" class="students_waiting" id="students_waiting">NO OF STUDENTS WAITING
+        TO BE COUNSELLED </p>
+</div>
+<div class="container">
+    <script>
+        console.log({ m });
+    </script>
+    <!-- <p  style="color:blue; text-align:center;">AVAILABILITY STATUS =</p> -->
+    {% if m == 1 %}
+    <p style="color:blue; text-align:center;">AVAILABLE</p>
+    {% else %}
+    <p style="color:blue; text-align:center;">UNAVAILABLE</p>
+    {% endif %}
+
+    <div style="color:blue; text-align:center;">
+        <form method="post">
+            {% csrf_token %}
+            <input class="btn btn-light" type="submit" name="change_status" value="CHANGE_STATUS" />
+
+        </form>
+        <br>
+        <button onclick="location.href = '{% url 'logout' %}';" type="button" class="btn btn-light">LOGOUT</button>
+
+        <button onclick="location.href = '{% url 'update' %}';" type="button" class="btn btn-light">UPDATE PROFILE</button>
+
+        <!-- <button onclick="location.href = '{% url 'update' %}';" type="button" class="btn btn-light">CHANGE_STATUS</button> -->
+
+    </div>
+</div>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<!-- <div class="container">
+	<div class="row">
+		<div class="col-lg-3 col-sm-6">
+            <div class="card hovercard">
+                <div class="cardheader">
+                </div>
+                <div class="avatar">
+                    <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                </div>
+                <div class="info">
+                    <div class="title">
+                        <a target="_blank" href="https://scripteden.com/">Script Eden</a>
+                    </div>
+                    <div class="desc">Passionate designer</div>
+                    <div class="desc">Curious developer</div>
+                    <div class="desc">Tech geek</div>
+                </div>
+                <div class="bottom">
+                    <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-danger btn-sm" rel="publisher"
+                       href="https://plus.google.com/+ahmshahnuralam">
+                        <i class="fa fa-google-plus"></i>
+                    </a>
+                    <a class="btn btn-primary btn-sm" rel="publisher"
+                       href="https://plus.google.com/shahnuralam">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a class="btn btn-warning btn-sm" rel="publisher" href="https://plus.google.com/shahnuralam">
+                        <i class="fa fa-behance"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+	</div>
+</div> -->
+{% else %}
+<p>You are not logged in,This is only for Counsellors.</p>
+<a href="{% url 'login' %}">LOGIN IF YOU ARE A COUNSELLOR</a>
+<a href="{% url 'home' %}">NOT A COUNSELLOR-HOME</a>
+{% endif %}
+<script>
+    function refresh() {
+        $.ajax({
+            url: '/chat/waiting_students',
+            success: function (data) {
+
+                x = JSON.parse(data["data"]);
+                console.log(x.length);
+                $('.students_waiting').html(x.length);
+            },
+            error: function () {
+                console.log('Ajax Error');
+            }
+        });
+    }
+
+    $(function () {
+        refresh();
+    });
+    refresh();
+    setInterval("refresh()", 1000);
+</script>
+{% endblock %}

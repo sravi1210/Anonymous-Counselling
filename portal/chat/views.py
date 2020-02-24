@@ -1,5 +1,7 @@
+import json
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
+from django.core import serializers
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.urls import reverse_lazy
@@ -14,6 +16,8 @@ from .models import messages, student, Chatroom, counsellor
 from datetime import datetime
 from django.urls import reverse
 from django.utils.timezone import now
+from django.views.decorators.csrf import csrf_exempt
+
 
 class SignUpView(CreateView):
     form_class = Counsellorform
@@ -31,10 +35,10 @@ def Chat(request, chatroom_id):
     try:
         t = models.Chatroom.objects.get(pk=chatroom_id)
     except ObjectDoesNotExist:
-        if(request.user.is_authenticated):
-            request.user.user_status = 0
+        if (request.user.is_authenticated):
+            return HttpResponseRedirect(reverse('counsellor'))
         return HttpResponseRedirect(reverse('home'))
-    if request.user.is_authenticated==0:
+    if request.user.is_authenticated == 0:
         request.session.set_test_cookie()
         request.session['chatroom'] = Chatroom.objects.get(pk=chatroom_id).Student.id
         request.session['last_activity'] = datetime.now()
@@ -53,13 +57,14 @@ def Chat(request, chatroom_id):
             msg.message_time = now()
             msg.save()
             form = Message(instance=messages)
-            m1 = chat[0].messages_set.all().filter(message_from=0)
-            m2 = chat[0].messages_set.all().filter(message_from=1)
+            m = chat[0].messages_set.all()
 
-            return render(request, 'chat.html', context={'m1': m1, 'm2': m2, 'form': form}, )
+            return render(request, 'chat.html', context={'m': m, 'form': form, 'chatroomid': chatroom_id}, )
         else:
             stud = Chatroom.objects.get(pk=chatroom_id).Student
             stud.delete()
+            if (request.user.is_authenticated):
+                return HttpResponseRedirect(reverse('counsellor'))
             return HttpResponseRedirect(reverse('home'))
 
 
@@ -69,9 +74,16 @@ def Chat(request, chatroom_id):
         return render(request, 'chat.html', args)
 
 
+def messagerefresh(request, chatroom_id):
+    chat = Chatroom.objects.filter(pk=chatroom_id)
+    m = chat[0].messages_set.all()
+    m = serializers.serialize('json', m)
+    return JsonResponse({'m': m, 'chatroomid': chatroom_id}, safe=False)
+
+
 def studentCounselling(request):
     for m in models.counsellor.objects.all():
-        if m.user_status == 0:
+        if m.user_status == 1:
             stud = student.objects.create()
             stud.student_status = True
             stud.save()
@@ -88,12 +100,11 @@ def Recent(request):
         if (ac.count != 0):
             try:
 
-                availablechatroom = ac[0]  # 0 or n-1 dekh lio
+                availablechatroom = ac[0]
                 couns = counsellor.objects.get(pk=request.user.id)
                 availablechatroom.active_status = 1
-                availablechatroom.Counsellor = couns  # pta ni shi hoga ya nhi
+                availablechatroom.Counsellor = couns
                 chatroom_id = availablechatroom.Chatroom_id
-                couns.user_status = 0
                 availablechatroom.save()
                 couns.save()
 
@@ -102,3 +113,32 @@ def Recent(request):
                 return HttpResponse("There are no students right now")
         else:
             return HttpResponse("There are no students right now")
+
+
+def available_chatroom(request):
+    if request.user.is_authenticated:
+        data = Chatroom.objects.all().filter(active_status=0)
+        data = serializers.serialize('json', data)
+        return JsonResponse({'data': data})
+
+
+def counsellor_portal(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            x = request.user
+            if x.user_status == 0:
+                x.user_status = 1
+            else:
+                x.user_status = 0
+            x.save()
+            return render(request, 'counsellor.html', context={'m': x.user_status, }, )
+        else:
+            return render(request, 'home.html')
+    else:
+        if request.user.is_authenticated:
+            x = request.user
+            x.user_status = 1
+            x.save()
+            return render(request, 'counsellor.html', context={'m': x.user_status, }, )
+        else:
+            return render(request, 'counsellor.html')

@@ -1,19 +1,53 @@
-{% extends 'base.html' %}
-
-{% block title %}Home{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>homepage</title>
+  <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Anton|Heebo|Noto+Sans+KR&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'home/css/home.css' %}">
+  <!-- <script src="{% static 'home/js/home.js' %}" defer></script> -->
+</head>
+<body>
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">logout</a></p>
-  <a href="{% url 'update' %}">update</a>
-  <a href="{% url 'Recent' %}">Give me a student</a>
+  <p>
+    <button onclick="location.href = '{% url 'logout' %}';" type="button" class="btn btn-light">LOGOUT</button>
+  </p>
+  <button onclick="location.href = '{% url 'update' %}';" type="button" class="btn btn-light">UPDATE PROFILE</button>
+  <button onclick="location.href = '{% url 'counsellor' %}';" type="button" class="btn btn-light">LETS COUNSEL</button>
 {% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-  <a href="{% url 'signup' %}">signup</a>
-    <div>
-        <a href="{% url 'studentCounselling' %}">I want to talk</a>
+    <!-- <a href="{% url 'signup' %}">signup</a> -->
+  <div>
+  <div class="centered1">
+    <hr size="30">
+    <h1 id="sam">Anonymous Counselling Portal</h1>
+    <hr size="30">
+  </div>
+  <div class="split left">
+    <div class="centered">
+      <h1 id="white">I want to talk</h1>
+      <button onclick="location.href = '{% url 'student' %}';" type="button" class="btn btn-light">Proceed</button>
+      <p> 
+     <!-- <a href="{% url 'student' %}">Want To Talk</a> -->
+  </p>
+       
     </div>
+  </div>
+  <div class="split right">
+    <div class="centered">
+      <h1>I am a counsellor</h1>
+      <!-- <a href="{% url 'login' %}">LOGIN</a> -->
+      <button onclick="location.href = '{% url 'login' %}';" type="button" class="btn btn-danger">Login</button> 
+      
+    </div>
+  </div>
+</div>
 {% endif %}
-{% endblock %}
+</body>
+</html>

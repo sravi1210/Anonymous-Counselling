@@ -37,11 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
 ]
 
 MIDDLEWARE = [
@@ -123,7 +121,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'assets'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'chat/static/'),)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 AUTH_USER_MODEL = 'chat.counsellor'
 
 AUTHENTICATION_BACKENDS = (
@@ -133,5 +133,5 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/chat/counsellor'
 LOGOUT_REDIRECT_URL = '/'

@@ -1,13 +1,52 @@
-<!-- templates/registration/login.html -->
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
 
-{% block title %}Login{% endblock %}
+<head>
+	<meta charset="UTF-8">
+	<title> HTML Login page </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/login.css' %}">
+</head>
 
-{% block content %}
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
-{% endblock %}
+<body>
+	<div style="background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);height: 100vh;">
+		<div class="full">
+			<form method="post">
+				
+				<center>
+					<div class="login-box">
+						<center>
+							<h2> &nbsp;Counsellor Login &nbsp;</h2>
+						</center>
+						<div class="text-box">
+							{% csrf_token %}
+							<p>
+								<label for="id_username">Username:</label> 
+								<input required type="text" name="username" autofocus required id="id_username" placeholder="Enter Username Here">
+							</p>
+							<p>
+								<label for="id_password">Password:</label> 
+								<input required type="password" name="password" required id="id_password" placeholder="Enter Password Here">
+							</p>
+						</div>
+						<center>
+							<button
+								class="btn btn-outline-primary mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+								id="login_button" type="submit">Login</button>
+							<div id="loginProgress" class="mdl-spinner mdl-js-spinner is-active" style="display: none;">
+							</div>
+						</center>
+					</div>
+				</center>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>
