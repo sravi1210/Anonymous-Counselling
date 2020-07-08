@@ -3,23 +3,18 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-<div class="container" style="color :green; text-align:center;">
+
+<div class="container" style="color :green; text-align:center;padding-top:20px;">
     <img src="https://image.shutterstock.com/image-vector/male-silhouette-avatar-profile-picture-260nw-199246382.jpg">
     <p>
         <h2> Hi {{ user.username }}!</h2>
     </p>
 </div>
 
-<div class="container">
-
-
-
-</div>
-<div class="container" style="color:blue; text-align:center;">
+<div class="container" style="color:blue; text-align:center;padding-bottom:10px;">
     <a href="{% url 'Recent' %}" target="_blank" class="btn btn-light">
         <h3>Give me a student</h3>
     </a>
-
 </div>
 
 <div class="container">
@@ -31,7 +26,6 @@
     <script>
         console.log({ m });
     </script>
-    <!-- <p  style="color:blue; text-align:center;">AVAILABILITY STATUS =</p> -->
     {% if m == 1 %}
     <p style="color:blue; text-align:center;">AVAILABLE</p>
     {% else %}
@@ -48,8 +42,8 @@
         <button onclick="location.href = '{% url 'logout' %}';" type="button" class="btn btn-light">LOGOUT</button>
 
         <button onclick="location.href = '{% url 'update' %}';" type="button" class="btn btn-light">UPDATE PROFILE</button>
+        <button onclick="location.href = '{% url 'home' %}';" type="button" class="btn btn-light">HOME</button>
 
-        <!-- <button onclick="location.href = '{% url 'update' %}';" type="button" class="btn btn-light">CHANGE_STATUS</button> -->
 
     </div>
 </div>
@@ -59,49 +53,15 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<!-- <div class="container">
-	<div class="row">
-		<div class="col-lg-3 col-sm-6">
-            <div class="card hovercard">
-                <div class="cardheader">
-                </div>
-                <div class="avatar">
-                    <img alt="" src="http://lorempixel.com/100/100/people/9/">
-                </div>
-                <div class="info">
-                    <div class="title">
-                        <a target="_blank" href="https://scripteden.com/">Script Eden</a>
-                    </div>
-                    <div class="desc">Passionate designer</div>
-                    <div class="desc">Curious developer</div>
-                    <div class="desc">Tech geek</div>
-                </div>
-                <div class="bottom">
-                    <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">
-                        <i class="fa fa-twitter"></i>
-                    </a>
-                    <a class="btn btn-danger btn-sm" rel="publisher"
-                       href="https://plus.google.com/+ahmshahnuralam">
-                        <i class="fa fa-google-plus"></i>
-                    </a>
-                    <a class="btn btn-primary btn-sm" rel="publisher"
-                       href="https://plus.google.com/shahnuralam">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                    <a class="btn btn-warning btn-sm" rel="publisher" href="https://plus.google.com/shahnuralam">
-                        <i class="fa fa-behance"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-	</div>
-</div> -->
 {% else %}
-<p>You are not logged in,This is only for Counsellors.</p>
-<a href="{% url 'login' %}">LOGIN IF YOU ARE A COUNSELLOR</a>
-<a href="{% url 'home' %}">NOT A COUNSELLOR-HOME</a>
+<div align="center" style="padding-top:80px;">
+    <h4 style="padding-bottom:10px;">You are not logged in,This is only for Counsellors.</h4>
+<h5><a href="{% url 'login' %}">LOGIN IF YOU ARE A COUNSELLOR</a></h5>
+<h5><a href="{% url 'home' %}">NOT A COUNSELLOR-HOME</a></h5>
+</div>
 {% endif %}
 <script>
+
     function refresh() {
         $.ajax({
             url: '/chat/waiting_students',

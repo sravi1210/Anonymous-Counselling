@@ -15,12 +15,25 @@
 </head>
 <body>
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p>
-    <button onclick="location.href = '{% url 'logout' %}';" type="button" class="btn btn-light">LOGOUT</button>
-  </p>
-  <button onclick="location.href = '{% url 'update' %}';" type="button" class="btn btn-light">UPDATE PROFILE</button>
-  <button onclick="location.href = '{% url 'counsellor' %}';" type="button" class="btn btn-light">LETS COUNSEL</button>
+<div>
+
+    <div style="padding-top:45px;padding-left:45%;font-size:35px;">
+    <b>Hi {{ user.username }} !!</b>
+      <button onclick="location.href = '{% url 'counsellor' %}';" type="button" class="btn btn-info btn-sm"
+              style="float:right;margin-right:42px;width:280px;height:54px;font-size:20px;">
+        Go to account</button>
+  </div>
+  <div class="centered">
+      <div class="card" style="width: 18rem; opacity:0.9;">
+        <div class="card-body">
+          <h5 class="card-title">Please proceed to your account for any waiting student</h5>
+          <button style="opacity:1;" onclick="location.href = '{% url 'counsellor' %}';" type="button" class="btn btn-primary">Proceed</button>
+        </div>
+      </div>
+    </div>
+
+</div>
+
 {% else %}
   <div>
   <div class="centered1">
@@ -38,9 +51,10 @@
       </div>
     </div>
 
-    <div style="text-align: right;">
-      <h1 style="font-size: 20px; color: rgb(37, 160, 209); margin-right: 30px;">I am a counsellor</h1>
-      <button onclick="location.href = '{% url 'login' %}';" type="button" class="btn btn-info btn-sm" style="margin-right: 40px;">Login</button> 
+    <div style="text-align:right;padding-top:45px;">
+      <button onclick="location.href = '{% url 'login' %}';" type="button" class="btn btn-info btn-sm"
+              style="margin-right:42px;width:280px;height:54px;font-size:20px;">
+        Login as Counselor</button>
     </div>
 </div>
 {% endif %}
