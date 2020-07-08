@@ -32,7 +32,7 @@ which enable browser based sessions. So when browser is closed (not window) sess
 there are some other settings too which aren't much understandable but mostly useful (or maybe not, frankly i don't know)
 
 
-Also i (anket, yeah that's me :) ) have added a function which will be executed after every 3 hrs so that any unattended open
+Also i (anket, yeah that's me :) ) have added a function which will be executed after every 1 hrs so that any unattended open
 chatrooms which didnt have any request responce action which will delete the chatroom happens, all those chatrooms will be deleted.
 
 This is the functionality of the anonymous counselling portal.
