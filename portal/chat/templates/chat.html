@@ -699,16 +699,11 @@
 <title> Chatroom </title>
 </head>
 <body>
-<div id="frame">
+<div id="frame" style="width:40%;">
     <div class="content">
         <div class="contact-profile">
-            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-            <p>Harvey Specter</p>
-            <div class="social-media">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-            </div>
+            <img src="https://www.iitg.ac.in/stud/gymkhana/welfareBoard/clubs/images/saathi/slide1.jpg" alt="" style="height:50px;width:auto;"/>
+            <p>Lets talk with Counsellor</p>
         </div>
         <div class="messages">
             <ul class="messages123">
@@ -732,7 +727,27 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div class="chat">
 </div>
+
+{% if user.is_authenticated %}
 <script>
+        var alerted = localStorage.getItem('alerted') || '';
+        if (alerted != 'yes') {
+        alert('Send Hi to start a conversation with the anonymous user waiting for the counselling');
+         localStorage.setItem('alerted','yes');
+        }
+    </script>
+{% else %}
+<script>
+        var alerted = localStorage.getItem('alerted') || '';
+        if (alerted != 'yes') {
+         alert("Send Hi to start a conversation.");
+         localStorage.setItem('alerted','yes');
+        }
+    </script>
+{% endif %}
+
+<script>
+
     function refresh() {
     $.ajax({
     url: '/chat/chatroom_refresh/{{ chatroomid }}',
@@ -742,7 +757,7 @@
     for(var i=0; i<x.length; i++){
     if(x[i]['fields']['message_from']==0)
      htm += '<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /> <p>' + x[i]['fields']['message']  + '</p> </li>'
-                else
+               else
                     htm += '<li class="replies"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /> <p>' + x[i]['fields']['message']  + '</p> </li>'
             }
             $('.messages123').html(htm);
