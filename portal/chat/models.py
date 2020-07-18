@@ -25,6 +25,7 @@ class student(models.Model):
     def __str__(self):
         return str(self.id)
 
+
 class Chatroom(models.Model):
     Chatroom_id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
@@ -36,6 +37,7 @@ class Chatroom(models.Model):
 
     class Meta:
         ordering = ['start_time']
+
     def _str_(self):
         return str(self.Chatroom_id)
 

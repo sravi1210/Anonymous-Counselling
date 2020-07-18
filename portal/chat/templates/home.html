@@ -15,38 +15,47 @@
 </head>
 <body>
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p>
-    <button onclick="location.href = '{% url 'logout' %}';" type="button" class="btn btn-light">LOGOUT</button>
-  </p>
-  <button onclick="location.href = '{% url 'update' %}';" type="button" class="btn btn-light">UPDATE PROFILE</button>
-  <button onclick="location.href = '{% url 'counsellor' %}';" type="button" class="btn btn-light">LETS COUNSEL</button>
+<div>
+
+    <div style="padding-top:45px;padding-left:45%;font-size:35px;">
+    <b>Hi {{ user.username }} !!</b>
+      <button onclick="location.href = '{% url 'counsellor' %}';" type="button" class="btn btn-info btn-sm"
+              style="float:right;margin-right:42px;width:280px;height:54px;font-size:20px;">
+        Go to account</button>
+  </div>
+  <div class="centered">
+      <div class="card" style="width: 18rem; opacity:0.9;">
+        <div class="card-body">
+          <h5 class="card-title">Please proceed to your account for any waiting student</h5>
+          <button style="opacity:1;" onclick="location.href = '{% url 'counsellor' %}';" type="button" class="btn btn-primary">Proceed</button>
+        </div>
+      </div>
+    </div>
+
+</div>
+
 {% else %}
-    <!-- <a href="{% url 'signup' %}">signup</a> -->
   <div>
   <div class="centered1">
     <hr size="30">
     <h1 id="sam">Anonymous Counselling Portal</h1>
     <hr size="30">
   </div>
-  <div class="split left">
+
     <div class="centered">
-      <h1 id="white">I want to talk</h1>
-      <button onclick="location.href = '{% url 'student' %}';" type="button" class="btn btn-light">Proceed</button>
-      <p> 
-     <!-- <a href="{% url 'student' %}">Want To Talk</a> -->
-  </p>
-       
+      <div class="card" style="width: 18rem; opacity:0.9;">
+        <div class="card-body">
+          <h5 class="card-title">I want to talk</h5>
+          <button style="opacity:1;" onclick="location.href = '{% url 'student' %}';" type="button" class="btn btn-primary">Proceed</button>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="split right">
-    <div class="centered">
-      <h1>I am a counsellor</h1>
-      <!-- <a href="{% url 'login' %}">LOGIN</a> -->
-      <button onclick="location.href = '{% url 'login' %}';" type="button" class="btn btn-danger">Login</button> 
-      
+
+    <div style="text-align:right;padding-top:45px;">
+      <button onclick="location.href = '{% url 'login' %}';" type="button" class="btn btn-info btn-sm"
+              style="margin-right:42px;width:280px;height:54px;font-size:20px;">
+        Login as Counselor</button>
     </div>
-  </div>
 </div>
 {% endif %}
 </body>

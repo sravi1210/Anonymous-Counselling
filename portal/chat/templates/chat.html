@@ -7,17 +7,15 @@
   <link href="https://fonts.googleapis.com/css?family=Anton|Heebo|Noto+Sans+KR&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <title>{% block title %}Anonymous Counselling Platform.{% endblock %}</title>
-{#<script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script>#}
+<script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script>
 <meta charset='UTF-8'>
 <meta name="robots" content="noindex">
-{#<link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />#}
+<link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
 <link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
 <link rel="canonical" href="https://codepen.io/emilcarlsson/pen/ZOQZaV?limit=all&page=74&q=contact+" />
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
-{#
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-#}
-{#  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://use.typekit.net/hoy3lrg.js"></script>
 <script>try{Typekit.load({ async: true });}catch(e){}</script>
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
@@ -38,6 +36,7 @@
     -webkit-font-smoothing: antialiased;
     }
     #frame {
+    position: relative;
     width: 100%;
     min-width: 360px;
     max-width: 1000px;
@@ -522,7 +521,9 @@
     height: 100%;
     overflow: hidden;
     position: relative;
-    padding-left: 20%;
+    padding-left: 50%;
+    /* margin-left: -150px; */
+    display: contents;
     }
     @media screen and (max-width: 735px) {
     #frame .content {
@@ -690,44 +691,63 @@
     #frame .content .message-input .wrap button:focus {
     outline: none;
     }
+    textarea::placeholder{
+        padding-top: 7px;
+        text-align: center;
+    }
 </style>
 <title> Chatroom </title>
 </head>
 <body>
-<div id="frame">
+<div id="frame" style="width:40%;">
     <div class="content">
         <div class="contact-profile">
-            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-            <p>Harvey Specter</p>
-            <div class="social-media">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-            </div>
+            <img src="https://www.iitg.ac.in/stud/gymkhana/welfareBoard/clubs/images/saathi/slide1.jpg" alt="" style="height:50px;width:auto;"/>
+            <p>Lets talk with Counsellor</p>
         </div>
         <div class="messages">
             <ul class="messages123">
             </ul>
         </div>
-        <div class="message-input" style="margin-top:10%;">
-            <div class="wrap">
-                <form method="post">
-                    {% csrf_token %}
-                        <textarea rows="2" cols="50" required name="message" placeholder="Type Message Here..."></textarea>
-                        <input  type="submit" name="chat" class="btn btn-primary" value="Send" size="20" />
-                </form>
-                <form method="post">
-                    {% csrf_token %}
-                    <input type="submit" class="btn btn-danger" name="chat2"  value="Abort" />
-                </form>
-            </div>
+        <div class="message-input" style="margin-top:0%;">
+            <form method="post" style="display: grid; grid-template-columns: 3fr 1fr; width: 50%; margin-left: 25%;; position: relative; margin-bottom: 20px;">
+                {% csrf_token %}
+                <textarea rows="2" cols="50" required name="message" placeholder="Type Message Here..." style="width: 20; border-radius: 15px;"></textarea>
+                <button  type="submit" name="chat" class="btn btn-primary" value="Send" size="20" style="border-radius: 15px;">
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                </button>
+            </form>
         </div>
+        <form method="post" style="position: absolute; top: -20px; right: -20px;">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-danger" name="chat2"  value="X" style="border-radius: 50%;" />
+        </form>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div class="chat">
 </div>
+
+{% if user.is_authenticated %}
 <script>
+        var alerted = localStorage.getItem('alerted') || '';
+        if (alerted != 'yes') {
+        alert('Send Hi to start a conversation with the anonymous user waiting for the counselling');
+         localStorage.setItem('alerted','yes');
+        }
+    </script>
+{% else %}
+<script>
+        var alerted = localStorage.getItem('alerted') || '';
+        if (alerted != 'yes') {
+         alert("Send Hi to start a conversation.");
+         localStorage.setItem('alerted','yes');
+        }
+    </script>
+{% endif %}
+
+<script>
+
     function refresh() {
     $.ajax({
     url: '/chat/chatroom_refresh/{{ chatroomid }}',
@@ -737,7 +757,7 @@
     for(var i=0; i<x.length; i++){
     if(x[i]['fields']['message_from']==0)
      htm += '<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /> <p>' + x[i]['fields']['message']  + '</p> </li>'
-                else
+               else
                     htm += '<li class="replies"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /> <p>' + x[i]['fields']['message']  + '</p> </li>'
             }
             $('.messages123').html(htm);

@@ -70,7 +70,7 @@ TEMPLATES = [
         },
     },
 ]
-
+# to use the cookie bases sessions
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 WSGI_APPLICATION = 'portal.wsgi.application'
@@ -121,7 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'chat/static/'),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'chat/static'),)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 AUTH_USER_MODEL = 'chat.counsellor'
@@ -135,3 +135,6 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/chat/counsellor'
 LOGOUT_REDIRECT_URL = '/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = "/media/"

@@ -3,12 +3,31 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  <p>You are a Counsellor please proceede to Counsellor Page</p>
-  <a href="{% url 'counsellor' %}">LETS COUNSEL</a>
+<div class="container" align="center" style="padding-top:80px;">
+    {% if user.is_authenticated %}
+    <div class="centered">
+      <div class="card" style="width:50%; opacity:0.9;">
+        <div class="card-body">
+            <h4>You are a Counsellor </h4>  <h4>please proceed to Counsellor Page</h4>
+          <button style="opacity:1;" onclick="location.href = '{% url 'counsellor' %}';" type="button" class="btn btn-primary">Proceed to your account</button>
+        </div>
+      </div>
+    </div>
+
+
 {% else %}
-    <div>
-        <a href="{% url 'studentCounselling' %}">Connect me to a counsellor</a>
+
+    <div class="centered">
+      <div class="card" style="width: 18rem; opacity:0.9;">
+        <div class="card-body">
+          <button style="opacity:1;" onclick="location.href = '{% url 'studentCounselling' %}';" type="button" class="btn btn-primary">Connect me to a counsellor</button>
+        </div>
+      </div>
     </div>
 {% endif %}
+
+</div>
+<script>
+    localStorage.setItem('alerted','no');
+</script>
 {% endblock %}

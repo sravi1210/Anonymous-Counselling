@@ -1,0 +1,89 @@
+body{
+  background-image:url("/media/Counseller.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+h1{
+	color: rgb(28, 240, 134);
+}
+
+#white{
+  color: white;
+}
+#sam{
+	color:black;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight:1000;
+	font-size: 50px;
+}
+.split {
+  height: 70%;
+  width: 44%;
+  position: fixed;
+  z-index: 1;
+  top: 20;
+  overflow-x: hidden;
+  /* padding-top: 120px; */
+}
+
+hr{
+	border-top: 5px solid #000;
+}
+/* Control the left side */
+.left {
+  left: 0;
+  /* background-color: #874C62; */
+  /* background-image: url("https://keycareandsupport.com/wp-content/uploads/2017/09/Doctor-Avatar-split-05.jpg"); */
+  /* background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain; */
+  margin-top: 7%;
+  /* right: 0%; */
+  margin-left: 100px;
+}
+
+/*.sam{
+	background-color: #decacc;
+}*/
+/* Control the right side */
+.right {
+  right: 0;
+  margin-top: 7%;
+  /* left:0%; */
+  margin-right: 100px;
+  /* background-color: #e06371; */
+  /* background-color: #d9c214; */
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.centered1 {
+  position: absolute;
+  top: 6%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/*body {
+    padding:0;
+    margin:0;
+    overflow:hidden;
+	height: 600px;
+}
+canvas {
+    padding:0;
+    margin:0;
+}
+div.btnbg {
+    position:fixed;
+    left:0;
+    top:0;
+}*/
