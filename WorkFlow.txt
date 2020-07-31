@@ -7,12 +7,9 @@ be notified using ajax the number of students waiting for the counsellors with t
 counsellor will click upon the give me the student button, he will be redirected to the chatroom of the student who has came the earliest
 and still waiting and active status of the chatroom will be set true and foreignkey for counsellor to counsellor who has clicked to give
 the student. So the number of students waiting will be decreased as ajax keep refreshing the page. Now when student enters his chatroom,
-he will see a pop up of showing to send the hi to start conversation and fter sending hi will see a msg to wait till counsellor joins the
+he will see a pop up of showing to send the hi to start conversation and after sending hi student will see a msg to wait till counsellor joins the
 chatroom. Once the counsellor joins the chatroom, he will have to first send a hi or some msg to start a normal conversation and then they
 will be able to see all the msgs of each other.
-
-One problem: both have to send atleast one msg to see all msgs. before that one cannot see msgs.
-The positive use we can do of this to present, is that, all the msgs will be private until the student knows there is a counsellor at other end.
 
 before closing the browser, we will notify the chatroom users that please to close the chatroom and then to close the browser as closing the
 chatroom will delete all their msgs.
@@ -21,18 +18,15 @@ About the sessions implemented:
 To implement the sessions, we have made the custome middleware. the name of the middleware is included in middleware settings
 in settings.py . Now the name is placed at the last. The middlewares are executed from bottom to top order. So our middleware
 will be the first to get executed. our middleware basically executes the following function: whenever the anonymous user
-remians inactive for more than 600 secs, and after that any of counsellor or same anonymous user refreshes the page,
+remains inactive for more than 600 secs, and after that any of counsellor or same anonymous user refreshes the page,
 middleware deletes the chatroom user and messages assigned to user and then whoever is quierying they get
-redirected to respective homes. (here only time of msg sent by anonymous user is getting noted. so even after 500 sec of last msg of user,
-if counsellor replies, chatroom will close in next 100 sec. this is one problem) middle ware are basically codes which execute on any
+redirected to respective homes. middle ware are basically codes which execute on any
 responce or request from the user to the site. we have set cookies only for the anoymous user and not for the counsellor as counsellor may
-be attending multiple users at the same time. express whatever fuck ups we have in a positive way.
+be attending multiple users at the same time. 
 For the middleware to work correctly, there are some settings which are added to the settings.py like expire on browser close
 which enable browser based sessions. So when browser is closed (not window) session cookies are deleted.
-there are some other settings too which aren't much understandable but mostly useful (or maybe not, frankly i don't know)
 
-
-Also i (anket, yeah that's me :) ) have added a function which will be executed after every 1 hrs so that any unattended open
+Also there is a ready function in apps.py which will be executed after every 1 hrs so that any unattended open
 chatrooms which didnt have any request responce action which will delete the chatroom happens, all those chatrooms will be deleted.
 
 This is the functionality of the anonymous counselling portal.
