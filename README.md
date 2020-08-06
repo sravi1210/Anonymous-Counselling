@@ -16,7 +16,7 @@
 ```
 $ git clone https://github.com/sravi1210/Anonymous-Counselling.git
 $ cd Anonymous-Counselling
-$ pip install -r requirements.txt
+$ pip3 install -r requirements.txt
 $ cd portal
-$ python manage.py runserver
+$ python3 manage.py runserver
 ```
