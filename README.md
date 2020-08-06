@@ -1,2 +1,2 @@
 # Anonymous-Counselling portal
-A protal developed by students of IIT Guwahati
+A portal developed by students of IIT Guwahati
