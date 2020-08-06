@@ -12,3 +12,11 @@
 * To improvise further, if there are any chat sessions which remained unattended for more than 10 minutes by both counsellor and user, a automatic function running in background will make sure that the chat session is deleted. 
  
  
+### To run the project on your machine:
+```
+$ git clone https://github.com/sravi1210/Anonymous-Counselling.git
+$ cd Anonymous-Counselling
+$ pip install -r requirements.txt
+$ cd portal
+$ python manage.py runserver
+```
