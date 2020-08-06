@@ -1,5 +1,5 @@
 # Anonymous-Counselling
-This is a annonymous counselling platform developed my us at Students web committee for a accesible counselling envirnment for institute students.
+This is a anonymous counselling platform developed by us at Student's Web Committee for a accesible counselling environment for institute students.
 
 ### Workflow of the portal:
 
