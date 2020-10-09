@@ -27,6 +27,6 @@ For the middleware to work correctly, there are some settings which are added to
 which enable browser based sessions. So when browser is closed (not window) session cookies are deleted.
 
 Also there is a ready function in apps.py which will be executed after every 1 hrs so that any unattended open
-chatrooms which didnt have any request responce action which will delete the chatroom happens, all those chatrooms will be deleted.
+chatrooms which didnt have any request response action which will delete the chatroom happens, all those chatrooms will be deleted.
 
 This is the functionality of the anonymous counselling portal.

@@ -21,3 +21,4 @@ $ pip3 install -r requirements.txt
 $ cd portal
 $ python3 manage.py runserver
 ```
+### Student's Web Committee, Indian Institute Of Technology Guwahati.
